@@ -20,7 +20,7 @@ use Message::Passing::Input::ZeroMQ;
 sub basic_log_test : Test(2) {
 	my ($self) = @_;
 
-	my $app = sub { [200, [], ['ok']] };
+	my $app = sub { [200, ['Content-Type' => 'text/plain'], ['ok']] };
 	my $connect = 'tcp://127.0.0.1:'.empty_port();
 	my $wrapped_app = Plack::Middleware::AccessLog::Structured::ZeroMQ->wrap($app,
 		connect => $connect,
@@ -28,7 +28,7 @@ sub basic_log_test : Test(2) {
 
 	test_psgi($wrapped_app, sub {
 		my ($cb) = @_;
-		my $response = $cb->(GET '/');
+		my $response = $cb->(GET '/', Referer => 'http://localhost/foo');
 	});
 
 	my $input = $self->create_input($connect);
@@ -42,6 +42,8 @@ sub basic_log_test : Test(2) {
 			hostname         => re('^[\w\.-]+$'),
 			http_host        => 'localhost',
 			http_user_agent  => undef,
+			http_referer     => 'http://localhost/foo',
+			remote_user      => undef,
 			pid              => $$,
 			remote_addr      => '127.0.0.1',
 			request_duration => re('^\d+\.\d+$'),
@@ -49,6 +51,7 @@ sub basic_log_test : Test(2) {
 			request_uri      => '/',
 			response_status  => 200,
 			content_length   => 2,
+			content_type     => 'text/plain',
 			server_protocol  => 'HTTP/1.1',
 			date             => re('^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'),
 			epochtime        => re('^\d+(?:\.\d+)?$')
