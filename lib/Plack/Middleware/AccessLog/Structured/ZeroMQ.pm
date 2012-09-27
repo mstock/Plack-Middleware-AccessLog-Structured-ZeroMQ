@@ -67,11 +67,10 @@ sub new {
 
 	my $self = $class->next::method($arg_ref);
 
-	my $output = Message::Passing::Output::ZeroMQ->new(
-		connect => $self->{connect} || 'tcp://127.0.0.1:5552',
-	);
-
 	unless ($self->logger()) {
+		my $output = Message::Passing::Output::ZeroMQ->new(
+			connect => $self->{connect} || 'tcp://127.0.0.1:5552',
+		);
 		$self->logger(sub {
 			$output->consume(@_);
 		});
