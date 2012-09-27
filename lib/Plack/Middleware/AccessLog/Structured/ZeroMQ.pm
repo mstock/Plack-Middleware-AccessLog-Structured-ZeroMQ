@@ -99,11 +99,24 @@ L<Message::Passing|Message::Passing>, especially
 L<Message::Passing::Output::ZeroMQ|Message::Passing::Output::ZeroMQ> which is
 used by this middleware.
 
+In order to receive log messages with L<Message::Passing|Message::Passing>, one
+can use a command like the following:
+
+	message-pass --input ZeroMQ --input_options '{"socket_bind":"tcp://*:5552"}' \
+		--output STDOUT
+
 =item *
 
 L<Message::Passing::Output::ElasticSearch|Message::Passing::Output::ElasticSearch>
 which can serve as an output for L<Message::Passing|Message::Passing> to store
 the log messages into ElasticSearch.
+
+In order to pass log messages to ElasticSearch, a command like the following can
+be used:
+
+	message-pass --input ZeroMQ --input_options '{"socket_bind":"tcp://*:5552"}' \
+		--output ElasticSearch --output_options '{"elasticsearch_servers":["127.0.0.1:9200"]}' \
+			--encoder Null
 
 =back
 
