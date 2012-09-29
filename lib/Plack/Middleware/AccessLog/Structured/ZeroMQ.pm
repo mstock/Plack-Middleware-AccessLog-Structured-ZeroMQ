@@ -31,7 +31,9 @@ use Message::Passing::Output::ZeroMQ;
 
 Plack::Middleware::AccessLog::Structured::ZeroMQ is a
 L<Plack::Middleware|Plack::Middleware> which sends structured, JSON-encoded log
-messages into a ZeroMQ message queue.
+messages into a ZeroMQ message queue. It is a subclass of
+L<Plack::Middleware::AccessLog::Structured|Plack::Middleware::AccessLog::Structured>
+and thus uses its log messages.
 
 =head1 METHODS
 
