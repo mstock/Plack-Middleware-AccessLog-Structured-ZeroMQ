@@ -5,6 +5,7 @@ addons:
     - libzmq-dev
     - uuid-dev
 before_install:
+  - apt-cache policy libzmq1 libzmq-dev uuid-dev
   - export HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
   - rm .travis.yml
   - git config --global user.name "Dist Zilla Plugin TravisCI"
