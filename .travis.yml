@@ -1,4 +1,9 @@
 ---
+addons:
+  apt_packages:
+    - libzmq1
+    - libzmq-dev
+    - uuid-dev
 before_install:
   - export HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
   - rm .travis.yml
