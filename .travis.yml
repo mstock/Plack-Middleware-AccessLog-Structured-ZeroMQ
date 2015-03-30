@@ -1,15 +1,15 @@
 ---
 addons:
   apt_packages:
-    - libzmq1
-    - libzmq-dev
+    - libzmq1=2.1.11-1ubuntu1
+    - libzmq-dev=2.1.11-1ubuntu1
     - uuid-dev
 before_install:
-  - apt-cache policy libzmq1 libzmq-dev uuid-dev
   - export HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
   - rm .travis.yml
   - git config --global user.name "Dist Zilla Plugin TravisCI"
   - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
+  - apt-cache policy libzmq1 libzmq-dev uuid-dev
 install:
   - cpanm  --quiet  --notest --skip-installed Dist::Zilla
   - dzil authordeps | grep -ve '^\W' | xargs -n 5 -P 10 cpanm  --quiet   --notest  --skip-installed
