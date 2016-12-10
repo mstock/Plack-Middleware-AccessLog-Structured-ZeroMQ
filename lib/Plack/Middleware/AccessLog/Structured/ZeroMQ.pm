@@ -1,7 +1,5 @@
 package Plack::Middleware::AccessLog::Structured::ZeroMQ;
-{
-  $Plack::Middleware::AccessLog::Structured::ZeroMQ::VERSION = '0.001000';
-}
+$Plack::Middleware::AccessLog::Structured::ZeroMQ::VERSION = '0.001001';
 use parent qw(Plack::Middleware::AccessLog::Structured);
 
 # ABSTRACT: Access log middleware which passes structured log messages into ZeroMQ
@@ -36,7 +34,10 @@ sub new {
 1;
 
 __END__
+
 =pod
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -44,7 +45,7 @@ Plack::Middleware::AccessLog::Structured::ZeroMQ - Access log middleware which p
 
 =head1 VERSION
 
-version 0.001000
+version 0.001001
 
 =head1 SYNOPSIS
 
@@ -144,10 +145,9 @@ Manfred Stock <mstock@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Manfred Stock.
+This software is copyright (c) 2016 by Manfred Stock.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
